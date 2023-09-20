@@ -78,16 +78,18 @@ def main(argv):
     if args.clients is not None:
         subfolders = glob.glob(args.clients + "/*/")
         subfolders.sort()
-
+        print(subfolders)
         # clients initialisation
         clients = []
         for subfolder in subfolders:
             try:
                 X_train, Y_train, time_window, max_flow_len, dataset_name = load_set(subfolder, "train",SEED)
                 X_val, Y_val, time_window, max_flow_len, dataset_name = load_set(subfolder, "val",SEED)
+                print(dataset_name)
             except:
                 continue
-
+            
+            
             client = init_client(subfolder, X_train, Y_train, X_val, Y_val, dataset_name, time_window, max_flow_len)
             clients.append(client)
 
